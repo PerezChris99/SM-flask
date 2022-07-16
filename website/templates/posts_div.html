@@ -31,6 +31,15 @@
                                 <small class="text-muted">
                                     {{comment.date_created}}
                                 </small>
+                                {% if user.id == comment.author or user.id == post.author%}
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/delete-comment/{{comment.id}}" class="dropdown-item">Delete</a></li>
+                                    </ul>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                         {% endfor %}
@@ -40,7 +49,7 @@
             <p class="card-text">
                 {% if post.comments|length > 0 %}
                 <a data-bs-toggle="collapse" href="#comments-{{post.id}}" role="button">
-                    <button>View {{post.comments|length}} Comments</button>
+                    <small>View {{post.comments|length}} Comments</small>
                 </a>
                 {% else %}
                 <small class="text-muted">No comments</small>
