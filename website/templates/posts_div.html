@@ -19,10 +19,24 @@
         <div class="card-body">
             <div class="card-text">{{post.text}}</div>
             <br/>
-            {% for comment in post.comments %}
-               {{ comment.text }}
-            {% endfor %}
-            <br/>
+            <div class="" id="comments-{{post.id}}">
+                <div class="card">
+                    <div class="card-body" id="comments-expanded-{{post.id}}">
+                        {% for comment in post.comments %}
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <a href="/posts/{{comment.user.username}}">{{comment.user.username}}</a>: {{comment.text}}
+                            </div>
+                            <div>
+                                <small class="text-muted">
+                                    {{comment.date}}
+                                </small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
             <form class="input-group mb-3" method="POST" action="/create-comment/{{post.id}}">
                 <input type="text" id="text" name="text" class="form-control" placeholder="Comment something!"/>
                 <button type="submit" class="btn btn-primary">Comment</button>
