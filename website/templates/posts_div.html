@@ -5,10 +5,10 @@
     {% for post in posts %}
     <div class="card border-dark">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <a href="/user/{{post.user.username}}">{{post.user.username}}</a>
+            <a href="/posts/{{post.user.username}}">{{post.user.username}}</a>
             <div>
                 {{ post.likes|length }}
-                <i class="fa-regular fa-thumbs-up"></i>
+                <a href="/like-post/{{post.id}}"><i class="fa-regular fa-thumbs-up"></i></a>
                 {% if user.id == post.author %}
                 <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown">
