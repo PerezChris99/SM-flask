@@ -7,11 +7,11 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <a href="/posts/{{post.user.username}}">{{post.user.username}}</a>
             <div>
-               {{  post.likes|length }}
+               <span id="likes-count-{{post.id}}">{{ post.likes|length }}</span>
                {% if user.id in post.likes|map(attribute="author")|list %}
-               <a href="/like-post/{{post.id}}"><i class="fas fa-thumbs-up"></i></a>
+               <i class="fas fa-thumbs-up" id="like-button-{{post.id}}" onclick="like({{post.id}})"></i>
                {% else %}
-               <a href="/like-post/{{post.id}}"><i class="far fa-thumbs-up"></i></a>
+               <i class="far fa-thumbs-up" id="like-button-{{post.id}}" onclick="like({{post.id}})"></i>
                {% endif %}
                 {% if user.id == post.author %}
                 <div class="btn-group">
