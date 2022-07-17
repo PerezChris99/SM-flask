@@ -1,5 +1,5 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %}
-{% block content%}
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
 <h1 align="center">{% block header %}Posts{% endblock %}</h1>
 <div id="posts">
     {% for post in posts %}
@@ -7,44 +7,47 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <a href="/posts/{{post.user.username}}">{{post.user.username}}</a>
             <div>
-               <span id="likes-count-{{post.id}}">{{ post.likes|length }}</span>
-               {% if user.id in post.likes|map(attribute="author")|list %}
-               <i class="fas fa-thumbs-up" id="like-button-{{post.id}}" onclick="like({{post.id}})"></i>
-               {% else %}
-               <i class="far fa-thumbs-up" id="like-button-{{post.id}}" onclick="like({{post.id}})"></i>
-               {% endif %}
-                {% if user.id == post.author %}
+                <span id="likes-count-{{post.id}}">
+                    {{ post.likes|length }}</span>
+                {% if user.id in post.likes|map(attribute="author")|list %}
+                <i class="fas fa-thumbs-up" id="like-button-{{post.id}}" onclick="like({{post.id}})"></i>
+                {% else %}
+                <i class="far fa-thumbs-up" id="like-button-{{post.id}}" onclick="like({{post.id}})"></i>
+                {% endif %} {% if user.id == post.author %}
                 <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="/delete-post/{{post.id}}" class="dropdown-item">Delete</a></li>
-                </ul>
-            </div>
-            {% endif %}
+                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                        data-bs-toggle="dropdown"></button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/delete-post/{{post.id}}" class="dropdown-item">Delete</a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="card-body">
             <div class="card-text">{{post.text}}</div>
-            <br/>
+            <br />
             <div class="collapse" id="comments-{{post.id}}">
                 <div class="card">
                     <div class="card-body" id="comments-expanded-{{post.id}}">
                         {% for comment in post.comments %}
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <a href="/posts/{{comment.user.username}}">{{comment.user.username}}</a>: {{comment.text}}
+                                <a href="/posts/{{comment.user.username}}">{{comment.user.username}}</a>:
+                                {{comment.text}}
                             </div>
                             <div>
-                                <small class="text-muted">
-                                    {{comment.date_created}}
-                                </small>
-                                {% if user.id == comment.author or user.id == post.author%}
+                                <small class="text-muted"> {{comment.date_created}}</small>
+                                {% if user.id == comment.author or user.id == post.author %}
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                                        data-bs-toggle="dropdown"></button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/delete-comment/{{comment.id}}" class="dropdown-item">Delete</a></li>
+                                        <li>
+                                            <a href="/delete-comment/{{comment.id}}" class="dropdown-item">Delete</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 {% endif %}
@@ -60,27 +63,22 @@
                     <small>View {{post.comments|length}} Comments</small>
                 </a>
                 {% else %}
-                <small class="text-muted">No comments</small>
+                <small class="text-muted">No Comments</small>
                 {% endif %}
             </p>
             <form class="input-group mb-3" method="POST" action="/create-comment/{{post.id}}">
-                <input type="text" id="text" name="text" class="form-control" placeholder="Comment something!"/>
+                <input type="text" id="text" name="text" class="form-control" placeholder="Comment something!" />
                 <button type="submit" class="btn btn-primary">Comment</button>
             </form>
         </div>
-        <div class="card-footer text-muted">
-            {{post.date_created}}
-        </div>
-
+        <div class="card-footer text-muted">{{post.date_created}}</div>
     </div>
-    <br>
-{% endfor %}
+    <br /> {% endfor %}
 </div>
 {% block footer %}
 <div align="center">
-  <a href="/create-post"
-   ><button type="button" class="btn btn-primary btn-lg">
-    Create a Post
-   </button></a>
+    <a href="/create-post"><button type="button" class="btn btn-primary btn-lg">
+            Create a Post
+        </button></a>
 </div>
-{% endblock %}{% endblock %}
+{% endblock %} {% endblock %}
